@@ -5,10 +5,10 @@ Source:
 Pexels
 
 Purpose:
-Used for testing Veil's video redaction functionality.
+Used for testing VideoRedact's video redaction functionality.
 
 License:
 Pexels License
 
 Source:
-https://www.pexels.com/video/urban-traffic-scene-in-germany-from-window-view-31438876/
+https://www.pexels.com/video/exploring-guangzhou-city-streets-on-a-busy-day-36695079/
