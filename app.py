@@ -199,27 +199,5 @@ def upload_video():
             "error": "Video processing failed. Please check the video file and try again."
         }), 500
 
-
-# @app.route("/video/processed/<filename>")
-# def processed_video(filename):
- 
-#     safe_filename = secure_filename(filename)
-#     task_id = request.args.get("task_id")
-
-#     if task_id:
-#         safe_task_id = secure_filename(task_id)
-#         task_dir = os.path.join(TEMP_BASE_DIR, safe_task_id)
-#         if os.path.exists(os.path.join(task_dir, safe_filename)):
-#             return send_from_directory(task_dir, safe_filename, as_attachment=False)
-
-#     if os.path.exists(TEMP_BASE_DIR):
-#         for sub in os.listdir(TEMP_BASE_DIR):
-#             candidate_dir = os.path.join(TEMP_BASE_DIR, sub)
-#             if os.path.isdir(candidate_dir) and os.path.exists(os.path.join(candidate_dir, safe_filename)):
-#                 return send_from_directory(candidate_dir, safe_filename, as_attachment=False)
-
-#     return jsonify({"error": "File not found"}), 404
-
-
 if __name__ == "__main__":
     app.run(debug=False)
