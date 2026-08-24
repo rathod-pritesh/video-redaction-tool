@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VideoRedact : AI Video Redaction and Privacy Tool</title>
+
+  <!-- Favicon / App Icons -->
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+  <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+  <link rel="apple-touch-icon" href="{{ url_for('static', filename='favicon.png') }}">
+
+  <!-- Bootstrap 5.3 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+  <!-- Application Stylesheets -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/toast.css') }}">
+</head>
+<body>
+
+{% include "toast.html" %}
+
+<header>
+  <a href="#tool" class="logo" aria-label="VideoRedact Home">
+    <img src="{{ url_for('static', filename='videoreadact_logo.png') }}" alt="VideoRedact" class="header-logo-img">
+  </a>
+
+  <div class="nav-container">
+    <nav class="nav-links" aria-label="Main Navigation">
+      <a href="#tool" class="active">Home</a>
+      <a href="#features">Features</a>
+      <a href="#how-it-works">How It Works</a>
+      <a href="#privacy">Privacy &amp; Security</a>
+      <a href="#use-cases">Use Cases</a>
+    </nav>
+  </div>
+
+  <a href="#tool" class="btn-header-cta">
+    <i class="bi bi-cloud-arrow-up"></i> Upload Video
+  </a>
+</header>
+
+<!-- Main Tool / Redactor Hero Section -->
+<main class="hero-section" id="tool">
+  <div class="hero-badge">
+    <i class="bi bi-shield-check"></i> Instant Privacy Workspace &bull; No Account Needed
+  </div>
+
+  <h1 class="hero-title">VideoRedact</h1>
+  <p class="subtitle">Blur what matters. Share with confidence.</p>
+
+  <!-- Visual Workflow Pipeline -->
+  <div class="workflow-steps-bar" aria-label="Processing workflow steps">
+    <span class="wf-step"><i class="bi bi-1-circle-fill"></i> Upload</span>
+    <span class="wf-arrow"><i class="bi bi-chevron-right"></i></span>
+    <span class="wf-step"><i class="bi bi-2-circle-fill"></i> AI Detection</span>
+    <span class="wf-arrow"><i class="bi bi-chevron-right"></i></span>
+    <span class="wf-step"><i class="bi bi-3-circle-fill"></i> Process</span>
+    <span class="wf-arrow"><i class="bi bi-chevron-right"></i></span>
+    <span class="wf-step"><i class="bi bi-4-circle-fill"></i> Download</span>
+  </div>
+
+  <div class="tool-card">
+    <div class="drop-zone" id="dropZone" tabindex="0" role="button" aria-label="Upload video file: drag and drop or press Enter to browse">
+      <div class="drop-icon"><i class="bi bi-cloud-arrow-up"></i></div>
+      <p class="drop-text">Drag &amp; drop your video here<br>or <span>browse files</span></p>
+      <p class="drop-hint">MP4, WebM, MOV: up to 100MB</p>
+      <input type="file" id="fileInput" accept="video/*" aria-hidden="true">
+    </div>
+
+    <div class="preview" id="preview">
+      <video id="videoPlayer" controls></video>
+      <p class="file-info" id="fileInfo"></p>
+    </div>
+
+    <div class="actions" id="actions" style="display:none;">
+      <button type="button" class="btn-custom btn-custom-primary" id="processBtn">
+        <i class="bi bi-gear-fill"></i> Process Video
+      </button>
+      <button type="button" class="btn-custom btn-custom-secondary" id="removeBtn">
+        <i class="bi bi-trash3"></i> Remove
+      </button>
+    </div>
+
+    <div class="status" id="status" role="status" aria-live="polite">
+      <span class="spinner"></span> Processing your video…
+    </div>
+
+    <div class="download-section" id="downloadSection">
+      <a href="#" id="downloadLink" download="redacted_video.mp4">
+        <i class="bi bi-download"></i> Download Processed Video
+      </a>
+    </div>
+  </div>
+
+  <div class="pills-row">
+    <div class="feature-pill"><i class="bi bi-lightning-charge-fill"></i> Automated Video Redaction</div>
+    <div class="feature-pill"><i class="bi bi-person-bounding-box"></i> Automated AI Face &amp; Object Blur</div>
+    <div class="feature-pill"><i class="bi bi-shield-lock-fill"></i> 100% Privacy Focused</div>
+  </div>
+</main>
+
+<!-- Features Section -->
+<section class="content-section" id="features">
+  <div class="section-header">
+    <span class="section-tag">Capabilities</span>
+    <h2 class="section-title">Engineered for Video Privacy</h2>
+    <p class="section-desc">Detect, blur, and sanitize sensitive information from video files with enterprise precision.</p>
+  </div>
+
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon-box"><i class="bi bi-person-bounding-box"></i></div>
+      <h3>Automated Face Blurring</h3>
+      <p>Real time deep learning models detect and blur human faces across every frame, even with fast motion and varied angles.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon-box"><i class="bi bi-car-front-fill"></i></div>
+      <h3>License Plate Obfuscation</h3>
+      <p>Automatically identify and redact vehicle registration numbers, plates, and identifying decals on dashcam or CCTV footage.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon-box"><i class="bi bi-file-earmark-lock2"></i></div>
+      <h3>Sensitive Text &amp; Documents</h3>
+      <p>Mask credit cards, ID cards, monitors, house numbers, and proprietary documents from accidentally appearing in public footage.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon-box"><i class="bi bi-sliders"></i></div>
+      <h3>Flexible Blur &amp; Mask Styles</h3>
+      <p>Choose between smooth Gaussian blur, pixelation mosaic, solid blackout masking, or bounding boxes depending on your needs.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon-box"><i class="bi bi-aspect-ratio"></i></div>
+      <h3>Lossless Quality Export</h3>
+      <p>Export in original resolution and frame rates up to 4K without adding compression artifacts or watermarks.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon-box"><i class="bi bi-cpu"></i></div>
+      <h3>High Speed Rendering</h3>
+      <p>Optimized algorithms deliver fast frame by frame processing directly in your browser session without unnecessary lag.</p>
+    </div>
+  </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="content-section" id="how-it-works">
+  <div class="section-header">
+    <span class="section-tag">Workflow</span>
+    <h2 class="section-title">How It Works</h2>
+    <p class="section-desc">Four simple steps to redact sensitive video footage in seconds.</p>
+  </div>
+
+  <div class="steps-grid">
+    <div class="step-card">
+      <div class="step-num">1</div>
+      <h3>Upload Video</h3>
+      <p>Drop your MP4, WebM, or MOV video file into the secure dropzone to initiate processing.</p>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num">2</div>
+      <h3>AI Detection</h3>
+      <p>Neural networks scan video frames to pinpoint faces, plates, and designated sensitive areas.</p>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num">3</div>
+      <h3>Process &amp; Preview</h3>
+      <p>Apply intelligent blur masks and preview the sanitized result directly in the built in player.</p>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num">4</div>
+      <h3>Secure Download</h3>
+      <p>Download your final redacted video ready for distribution, publication, or archiving.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Privacy & Security Section -->
+<section class="content-section" id="privacy">
+  <div class="section-header">
+    <span class="section-tag">Trust &amp; Compliance</span>
+    <h2 class="section-title">Privacy &amp; Security First</h2>
+    <p class="section-desc">Designed from the ground up to uphold strict data protection and regulatory compliance standards.</p>
+  </div>
+
+  <div class="privacy-grid">
+    <div class="privacy-card">
+      <div class="privacy-icon"><i class="bi bi-shield-lock-fill"></i></div>
+      <h3>Zero Data Retention</h3>
+      <p>Your media belongs exclusively to you. Processed videos are never retained, indexed, or stored permanently on external servers.</p>
+    </div>
+
+    <div class="privacy-card">
+      <div class="privacy-icon"><i class="bi bi-award-fill"></i></div>
+      <h3>GDPR, CCPA &amp; HIPAA Ready</h3>
+      <p>Fulfill stringent data privacy requirements for legal, medical, corporate, and public surveillance video releases.</p>
+    </div>
+
+    <div class="privacy-card">
+      <div class="privacy-icon"><i class="bi bi-key-fill"></i></div>
+      <h3>Encrypted Data Pipeline</h3>
+      <p>All video interactions and transfers are protected with modern TLS 1.3 encryption protocols for maximum data safety.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Use Cases Section -->
+<section class="content-section" id="use-cases" style="padding-top: 1rem;">
+  <div class="section-header">
+    <span class="section-tag">Applications</span>
+    <h2 class="section-title">Built for Diverse Needs</h2>
+    <p class="section-desc">From content creators to law enforcement, safeguard identities effortlessly.</p>
+  </div>
+
+  <div class="usecases-grid">
+    <div class="usecase-card">
+      <div class="usecase-icon"><i class="bi bi-camera-video-fill"></i></div>
+      <div class="usecase-content">
+        <h3>Content Creators &amp; Journalists</h3>
+        <p>Anonymize bystanders, children, and personal details in street vlogs, investigative reports, and social media videos before publishing.</p>
+      </div>
+    </div>
+
+    <div class="usecase-card">
+      <div class="usecase-icon"><i class="bi bi-shield-shaded"></i></div>
+      <div class="usecase-content">
+        <h3>Law Enforcement &amp; Public Records</h3>
+        <p>Prepare body camera, dashcam, and surveillance video evidence for public records (FOIA) requests while protecting innocent citizens.</p>
+      </div>
+    </div>
+
+    <div class="usecase-card">
+      <div class="usecase-icon"><i class="bi bi-hospital-fill"></i></div>
+      <div class="usecase-content">
+        <h3>Healthcare &amp; Clinical Studies</h3>
+        <p>Mask patient faces and medical records in clinical research, procedural footage, and medical staff training modules.</p>
+      </div>
+    </div>
+
+    <div class="usecase-card">
+      <div class="usecase-icon"><i class="bi bi-building-lock"></i></div>
+      <div class="usecase-content">
+        <h3>Enterprise &amp; CCTV Security</h3>
+        <p>Sanitize internal security recordings, facility footage, and employee interactions for compliance audits and third party reviews.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Call to Action Banner -->
+<div class="cta-container">
+  <div class="cta-card">
+    <h2>Ready to Redact Your Video?</h2>
+    <p>Upload your video to experience instant, automated privacy protection with zero account setup.</p>
+    <div class="cta-actions">
+      <a href="#tool" class="btn-custom btn-custom-primary" id="ctaUploadBtn">
+        <i class="bi bi-cloud-arrow-up"></i> Upload Video Now
+      </a>
+      <a href="#how-it-works" class="btn-custom btn-custom-secondary">
+        <i class="bi bi-arrow-down-circle"></i> Learn Workflow
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="#tool" class="footer-logo" aria-label="VideoRedact Home">
+        <img src="{{ url_for('static', filename='videoreadact_logo.png') }}" alt="VideoRedact" class="footer-logo-img">
+      </a>
+      <p>Direct use, privacy first automated video redaction tool.</p>
+    </div>
+    <div class="footer-links">
+      <a href="#tool">Home</a>
+      <a href="#features">Features</a>
+      <a href="#how-it-works">How It Works</a>
+      <a href="#privacy">Privacy &amp; Security</a>
+      <a href="#use-cases">Use Cases</a>
+    </div>
+  </div>
+  <div class="footer-copy">
+    &copy; 2026 VideoRedact. All rights reserved. Privacy first direct video processing.
+  </div>
+</footer>
+
+<!-- Bootstrap 5.3 JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+<!-- Application Scripts -->
+<script src="{{ url_for('static', filename='js/toast.js') }}"></script>
+<script src="{{ url_for('static', filename='js/index.js') }}"></script>
+</body>
+</html>
