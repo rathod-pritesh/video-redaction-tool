@@ -1,6 +1,6 @@
-VideoRedact
+# VideoRedact
 
-VideoRedact is a simple AI powered video redaction tool that helps remove sensitive content from videos before sharing them.
+** VideoRedact ** is a simple AI powered video redaction tool that helps remove sensitive content from videos before sharing them.
 
 It automatically detects people and selected objects in video frames and applies blur and redaction to protect privacy. The processed video is converted into a browser friendly format and temporarily stored in Amazon S3 for preview and download.
 
