@@ -62,7 +62,7 @@ def index():
 
 def convert_to_browser_video(input_path, output_path):
     command = [
-        r"C:\Users\ratho\AppData\Local\Microsoft\WinGet\Packages\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\ffmpeg-9.0-full_build\bin\ffmpeg.exe",
+        "ffmpeg",
         "-y",
         "-i", input_path,
         "-c:v", "libx264",
